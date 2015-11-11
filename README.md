@@ -95,13 +95,13 @@ This can be helpful if you want to use a partial in multiple places, but you nee
 
 So far we have looked at standard partial conventions, such as the ```form``` being placed in the same directory as the files that are calling it, and then we have reviewed how models have built in methods where they look for partials with a specific naming structure. However how do you call partials that are not associated with a specific controller or model?
 
-Let's say that we want to control where alerts are called, instead of placing them in the ```layouts/application.html.erb``` file (which you should never do anyways), you could create a new directory in the view's directory called ```shared``` and then add in a file called ```_alerts.html.erb```, now you can call your alers from anywhere in the application by calling:
+Let's say that we want to control where alerts are called, instead of placing them in the ```layouts/application.html.erb``` file (which you should never do anyways), you could create a new directory in the view's directory called ```shared``` and then add in a file called ```_alerts.html.erb```, now you can call your alerts from anywhere in the application by calling:
 
 ```ERB
 <%= render "shared/alerts" %>
 ```
 
-This same principle could be applied to any view code snippets that are used throughout the application, but are not directlry associated with a specific controller or model.
+This same principle could be applied to any view code snippets that are used throughout the application, but are not directly associated with a specific controller or model.
 
 ## Summary
 
