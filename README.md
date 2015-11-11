@@ -22,13 +22,13 @@ A basic example of how to use partials is built directly into the Rails scaffold
 It will give you a view directory that looks like this:
 
 views/
-> _form.html.erb
-> edit.html.erb
-> index.html.erb
-> index.json.jbuilder
-> new.html.erb
-> show.html.erb
-> show.json.jbuilder
+- _form.html.erb
+- edit.html.erb
+- index.html.erb
+- index.json.jbuilder
+- new.html.erb
+- show.html.erb
+- show.json.jbuilder
 
 The partial in this directory is the ```_form.html.erb``` file. Placing an underscore before the filename is how you tell Rails that the file will be a partial. So what makes the ```form``` file a good partial? If you open the ```new``` and ```edit``` files you can see that they do not actually have the ```new``` or ```edit``` forms, instead they simply call the ```form``` partial with the Ruby call ```<%= render 'form' %>```. Imagine a situation where you did not utilize partials for your forms, the result would be that anytime you added or removed a database column you would have to edit two files instead of one, which not only would create more work but could also lead to bugs if... scratch that... when you would forget to update one of the files.
 
@@ -43,7 +43,7 @@ What are other good candidates for leveraging partials? Below are a few you will
 
 Not only are partials good for DRYing up your view code, they can also be utilized to clean up how collections are called. Let's pretend that you have a news application that rendered all of the users that are following an article. Without partials your view code would look something like this:
 
-```
+```ruby
 <% @article.followers.each do |follower| %>
   <div class="article-followers">
     <%= image_tag(follower.avatar.to_s) %>
@@ -56,7 +56,7 @@ Not only are partials good for DRYing up your view code, they can also be utiliz
 
 You get the picture, it isn't pretty, that's where partials come in handy, one way to use partials would be to replace that code with something like this (don't worry about the local call, we'll get into that in the next section):
 
-```
+```ruby
 <% @article.followers.each do |follower| %>
   <%= render partial: 'followers/follower', locals: { follower: follower } %>
 <% end %>
@@ -64,7 +64,7 @@ You get the picture, it isn't pretty, that's where partials come in handy, one w
 
 Much better, right? You would simply move that ```div``` into the ```followers/follower``` partial and the view would render the same results. And as nice as that looks, Rails is all about clean code, which is why the entire collection can actually be refactored into a single line, such as the one below:
 
-```
+```ruby
 <%= render @article.followers %>
 ```
 
@@ -74,7 +74,7 @@ That one line of code will help make your view code much more manageable and wil
 
 By default, instance variables are available to partials, this makes sense because the partials are simply view code snippets that are being called and 'slide' into the view when the file is being rendered. However there are times when you need to pass local variables to a partial and Rails a clean way to do this. We already saw this in the example from the previous section:
 
-```
+```ruby
 <% @article.followers.each do |follower| %>
   <%= render partial: 'followers/follower', locals: { follower: follower } %>
 <% end %>
@@ -84,7 +84,7 @@ This will pass in the ```follower``` local variable to the partial so it will be
 
 In addition to passing a local variable, you can also hard code a value, such as below:
 
-```
+```ruby
 <% @article.followers.each do |follower| %>
   <%= render partial: 'followers/follower', locals: { follower: follower, avatar_size: 42 } %>
 <% end %>
@@ -97,7 +97,9 @@ So far we have looked at standard partial conventions, such as the ```form``` be
 
 Let's say that we want to control where alerts are called, instead of placing them in the ```layouts/application.html.erb``` file (which you should never do anyways), you could create a new directory in the view's directory called ```shared``` and then add in a file called ```_alerts.html.erb```, now you can call your alers from anywhere in the application by calling:
 
-```<%= render "shared/alerts" %>```
+```ruby
+<%= render "shared/alerts" %>
+```
 
 This same principle could be applied to any view code snippets that are used throughout the application, but are not directlry associated with a specific controller or model.
 
