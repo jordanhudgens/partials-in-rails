@@ -91,6 +91,8 @@ In addition to passing a local variable, you can also hard code a value, such as
 ```
 This can be helpful if you want to use a partial in multiple places, but you need to dynamically pass in values based on what page is making the call to the partial. For example, if you have one page that you want to see large avatar images for the followers and another page that you want a small thumbnail, this syntax will let you control the value efficiently.
 
+One important item to note: if you are going to pass local variables to the partial, you need to use the full ```<%= render partial: ... %>``` syntax, you cannot use the shorthand ```render``` method.
+
 ## Partial conventions in Rails
 
 So far we have looked at standard partial conventions, such as the ```form``` being placed in the same directory as the files that are calling it, and then we have reviewed how models have built in methods where they look for partials with a specific naming structure. However how do you call partials that are not associated with a specific controller or model?
